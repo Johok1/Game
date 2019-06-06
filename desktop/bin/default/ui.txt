@@ -1,0 +1,68 @@
+ui.png
+size: 1857, 1049
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+b
+  rotate: false
+  xy: 647, 677
+  size: 803, 372
+  orig: 803, 372
+  offset: 0, 0
+  index: 1
+b
+  rotate: false
+  xy: 0, 677
+  size: 647, 372
+  orig: 647, 372
+  offset: 0, 0
+  index: 2
+b
+  rotate: false
+  xy: 602, 305
+  size: 803, 305
+  orig: 803, 305
+  offset: 0, 0
+  index: 3
+b
+  rotate: false
+  xy: 0, 305
+  size: 602, 305
+  orig: 602, 305
+  offset: 0, 0
+  index: 4
+b
+  rotate: false
+  xy: 1255, 0
+  size: 602, 305
+  orig: 602, 305
+  offset: 0, 0
+  index: 5
+b
+  rotate: false
+  xy: 1022, 0
+  size: 233, 295
+  orig: 233, 295
+  offset: 0, 0
+  index: 6
+b
+  rotate: false
+  xy: 789, 0
+  size: 233, 295
+  orig: 233, 295
+  offset: 0, 0
+  index: 7
+b
+  rotate: false
+  xy: 1405, 305
+  size: 401, 372
+  orig: 401, 372
+  offset: 0, 0
+  index: 8
+field
+  rotate: false
+  xy: 0, 0
+  size: 789, 185
+  orig: 789, 185
+  offset: 0, 0
+  index: -1
