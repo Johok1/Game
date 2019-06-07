@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.mygdx.game.maps.TestLevel;
+import com.mygdx.game.utils.Settings;
 import com.mygdx.screens.GameScreen;
 import com.mygdx.screens.MainMenuScreen;
 /**
@@ -18,9 +19,10 @@ import com.mygdx.screens.MainMenuScreen;
  */
 
 public class TestGDX extends Game {
-	
+	private Settings pref;
 	@Override
 	public void create () {
+		pref = new Settings();
 		setScreen(new MainMenuScreen(this));
 	}
 	

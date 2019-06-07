@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.maps.Level;
 import com.mygdx.game.maps.TestLevel;
+import com.mygdx.game.utils.Settings;
 import com.mygdx.ui.State;
 
 /**
@@ -30,6 +31,7 @@ public class GameScreen implements Screen {
 	private ShapeRenderer shape; 
 	private State state;
 	private Game agame; 
+	private Settings pref;
 	public GameScreen(Game agame) {
 		this.agame = agame;
 		elapsedtime =0;
