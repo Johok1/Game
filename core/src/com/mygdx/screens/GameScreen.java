@@ -31,7 +31,7 @@ public class GameScreen implements Screen {
 	private ShapeRenderer shape; 
 	private State state;
 	private Game agame; 
-	private Settings pref;
+	
 	public GameScreen(Game agame) {
 		this.agame = agame;
 		elapsedtime =0;
@@ -53,9 +53,8 @@ public class GameScreen implements Screen {
 		case PAUSE:
 			elapsedtime += Gdx.graphics.getDeltaTime();
 			level.render(elapsedtime, state);
-			if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+			if(Gdx.input.isKeyJustPressed(Settings.pref.getInteger("PauseScreen"))) {
 				state = State.RUN;
-				shape.end();
 				break;
 			}else if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
 				state = State.EXIT;
@@ -64,7 +63,7 @@ public class GameScreen implements Screen {
 		case RUN:
 			elapsedtime += Gdx.graphics.getDeltaTime();
 			level.render(elapsedtime, state);
-			if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+			if(Gdx.input.isKeyJustPressed(Settings.pref.getInteger("PauseScreen"))) {
 				state = State.PAUSE;
 				break;
 			}
