@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -15,6 +16,7 @@ import com.mygdx.game.entities.Player;
 import com.mygdx.game.maps.Level;
 import com.mygdx.game.maps.TestLevel;
 import com.mygdx.game.utils.Settings;
+import com.mygdx.ui.PauseMenu;
 import com.mygdx.ui.State;
 
 /**
@@ -31,13 +33,13 @@ public class GameScreen implements Screen {
 	private ShapeRenderer shape; 
 	private State state;
 	private Game agame; 
-	
 	public GameScreen(Game agame) {
 		this.agame = agame;
 		elapsedtime =0;
 		level = new TestLevel("TestGreenMap.tmx",170,100);
 		shape = new ShapeRenderer();
 		state = State.RUN;
+
 	}
 	@Override
 	public void show() {
@@ -47,6 +49,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		level.getCam().update();
 		switch(state) {	
 		case EXIT:
 			agame.setScreen(new MainMenuScreen(agame));
@@ -56,7 +59,7 @@ public class GameScreen implements Screen {
 			if(Gdx.input.isKeyJustPressed(Settings.pref.getInteger("PauseScreen"))) {
 				state = State.RUN;
 				break;
-			}else if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+			}else if(level.getPause().button1Activate()) {
 				state = State.EXIT;
 				break;
 			}

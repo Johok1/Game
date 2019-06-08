@@ -2,6 +2,7 @@ package com.mygdx.game.maps;
 
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.mygdx.ui.PauseMenu;
 import com.mygdx.ui.State;
 import com.mygdx.ui.UI;
 
@@ -12,6 +13,7 @@ import com.mygdx.ui.UI;
  *
  */
 public class TestLevel extends Level{
+	private PauseMenu menu; 
 	/**
 	 * @param mappath The string path of the map for this level
 	 * @param camWidth Orthographic camera width 
@@ -21,6 +23,7 @@ public class TestLevel extends Level{
 		super(mappath, camWidth, camHeight);
 		super.setObjectLayer("Statics_Object_Layer");
 		super.setStartCoords(30, 30);
+		menu = new PauseMenu(super.getCam());
 	}
 	
 	
@@ -40,6 +43,7 @@ public class TestLevel extends Level{
 	 */
 	@Override
 	public void render(float elapsed, State state) {
+		menu.tick();
 		super.tick(super.getTiledMapLayer("Background"));
 		super.getCam().update();
 		super.getRenderer().setView(super.getCam());
@@ -47,7 +51,14 @@ public class TestLevel extends Level{
 		super.getRenderer().renderTileLayer(super.getTiledMapLayer("Background"));
 		super.renderPlayer(elapsed, getBatch(), state);
 		super.getRenderer().renderTileLayer(super.getTiledMapLayer("Statics"));
+		menu.render(elapsed, getBatch(),state);
 		super.getBatch().end();
+	}
+
+
+
+	public PauseMenu getPause() {
+		return menu; 
 	}
 	
 

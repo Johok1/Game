@@ -32,7 +32,7 @@ public class MainMenuScreen implements Screen{
 		elapsedtime += Gdx.graphics.getDeltaTime();
 		batch.setProjectionMatrix(cam.combined);
 		batch.begin();
-		mainMenuUI.render(elapsedtime, batch);
+		mainMenuUI.render(elapsedtime, batch, null);
 		batch.end();
 		if(mainMenuUI.touched()) {
 			agame.setScreen(new GameScreen(agame));

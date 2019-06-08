@@ -25,23 +25,31 @@ public class Settings {
 		pref.putInteger("PauseScreen", Input.Keys.valueOf("Escape"));
 		pref.flush();
 	}
-	public void save(boolean save) {
-		this.saved = save; 
+	public void save() {
+		this.saved = true; 
 	}
-	public void setMoveUp(char key) {
-		
+	public void setDefault() {
+		this.saved = false;
 	}
-	public void setMoveDown(char key) {
-		
+	public void setMoveUp(String key) {
+		pref.putInteger("MoveUp", Input.Keys.valueOf(key));
+		pref.flush();
 	}
-	public void setMoveLeft(char key) {
-		
+	public void setMoveDown(String key) {
+		pref.putInteger("MoveDown", Input.Keys.valueOf(key));
+		pref.flush();
 	}
-	public void setMoveRight(char key) {
-		
+	public void setMoveLeft(String key) {
+		pref.putInteger("MoveLeft", Input.Keys.valueOf(key));
+		pref.flush();
 	}
-	public void setPauseScreen(char key) {
-		
+	public void setMoveRight(String key) {
+		pref.putInteger("MoveRight", Input.Keys.valueOf(key));
+		pref.flush();
+	}
+	public void setPauseScreen(String key) {
+		pref.putInteger("PauseScreen", Input.Keys.valueOf(key));
+		pref.flush();
 	}
 	
 }

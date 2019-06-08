@@ -28,7 +28,12 @@ public abstract class UI implements InputProcessor{
 		cam.unproject(mousePos.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 	}
 	
-   public abstract void render(float elapsedtime, SpriteBatch batch);
+	/**
+	 * Always call mousePosUpdate(); first !!!
+	 * @param elapsedtime
+	 * @param batch
+	 */
+   public abstract void render(float elapsedtime, Batch batch,State state);
    
    public void dispose() {
 		UI.dispose();

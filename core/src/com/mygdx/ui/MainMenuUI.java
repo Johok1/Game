@@ -76,7 +76,7 @@ public class MainMenuUI extends UI{
 	}
 
 	@Override
-	public void render(float elapsedtime, SpriteBatch batch) { 
+	public void render(float elapsedtime, Batch batch, State state) { 
 		font.draw(batch, "Main Menu Screen", buttonBounds.getX()-(buttonBounds.getWidth()/2),buttonBounds.getY() +250);
 		mousePosUpdate();
 		if(isMouseCollision(buttonBounds)) {
