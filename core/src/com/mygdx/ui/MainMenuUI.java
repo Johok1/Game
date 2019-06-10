@@ -1,25 +1,21 @@
 package com.mygdx.ui;
 
-import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
 
 public class MainMenuUI extends UI{
 	private BitmapFont font; 
 	private Animation<TextureRegion> button,button2;
 	private Rectangle buttonBounds,buttonBounds2;
-	private OrthographicCamera cam;
 	private boolean touched; 
+	
 	public MainMenuUI(OrthographicCamera cam) {
 		super(cam);
-		this.cam = cam; 
 		font = new BitmapFont(); 
 		button = super.getAnimation("b", 1/100f);
 		button2 = super.getAnimation("b", 1/100f);

@@ -2,21 +2,13 @@ package com.mygdx.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.mygdx.game.entities.Player;
-import com.mygdx.game.maps.Level;
 import com.mygdx.game.maps.TestLevel;
 import com.mygdx.game.utils.Settings;
-import com.mygdx.ui.PauseMenu;
 import com.mygdx.ui.State;
 
 /**
@@ -32,14 +24,14 @@ public class GameScreen implements Screen {
 	public TestLevel level; 
 	private ShapeRenderer shape; 
 	private State state;
-	private Game agame; 
+	private Game agame;  
 	public GameScreen(Game agame) {
 		this.agame = agame;
 		elapsedtime =0;
 		level = new TestLevel("TestGreenMap.tmx",170,100);
 		shape = new ShapeRenderer();
 		state = State.RUN;
-
+		
 	}
 	@Override
 	public void show() {
@@ -62,6 +54,8 @@ public class GameScreen implements Screen {
 			}else if(level.getPause().button1Activate()) {
 				state = State.EXIT;
 				break;
+			}else if(level.getPause().button2Activate()) {
+				state = State.SETTINGS;
 			}
 		case RUN:
 			elapsedtime += Gdx.graphics.getDeltaTime();
@@ -70,6 +64,7 @@ public class GameScreen implements Screen {
 				state = State.PAUSE;
 				break;
 			}
+	
 		default:
 			break;
 

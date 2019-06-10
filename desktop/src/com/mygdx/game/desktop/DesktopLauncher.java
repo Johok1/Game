@@ -14,7 +14,7 @@ public class DesktopLauncher {
 		config.resizable = false; 
 		config.width = 1800;
 		config.height = 1600;
-		//config.fullscreen = true;
+		config.fullscreen = true;
 		new LwjglApplication(new TestGDX(), config);
 	}
 }

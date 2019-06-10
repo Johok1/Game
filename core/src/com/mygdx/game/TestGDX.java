@@ -9,12 +9,7 @@ import com.mygdx.game.utils.Settings;
 import com.mygdx.screens.GameScreen;
 import com.mygdx.screens.MainMenuScreen;
 /**
- * TODO: UI implementation 
- * TODO: Data Storage 
- * TODO: Sound Implementation 
- * TODO: Enemy AI (some sort of event system perhaps?)  
- * TODO: Refractor and Test Casing 
- * TODO: Title screen 
+ * 
  * @author Johok
  */
 

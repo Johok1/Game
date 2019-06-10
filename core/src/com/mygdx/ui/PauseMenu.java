@@ -1,16 +1,13 @@
 package com.mygdx.ui;
 
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 public class PauseMenu extends UI{
-	private BitmapFont font; 
+	
 	private Rectangle buttonBounds,buttonBounds2;
 	private Animation<TextureRegion> button,button2;
 	private boolean touched = false;
@@ -93,6 +90,14 @@ public class PauseMenu extends UI{
 		}else {
 			batch.draw(button2.getKeyFrame(0),buttonBounds2.getX(),buttonBounds2.getY(),buttonBounds2.getWidth(),buttonBounds2.getHeight());
 		}
+		case EXIT:
+			break;
+		case RUN:
+			break;
+		case SETTINGS:
+			break;
+		default:
+			break;
 		}
 	}
 

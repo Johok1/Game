@@ -1,10 +1,8 @@
 package com.mygdx.game.maps;
 
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.ui.PauseMenu;
 import com.mygdx.ui.State;
-import com.mygdx.ui.UI;
 
 /**
  * Simple test level

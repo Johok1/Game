@@ -107,6 +107,15 @@ public class Player extends Entity  {
 				batch.draw(still, this.x, this.y);
 		}
 		case PAUSE:
+			
+		case EXIT:
+			break;
+			
+		case SETTINGS:
+			break;
+			
+		default:
+			break;
 		
 	}
 	}

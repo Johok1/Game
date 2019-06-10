@@ -14,7 +14,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.entities.Player;
 import com.mygdx.ui.State;
-import com.mygdx.ui.UI;
 /**
  * An abstract object representing a map with several objects on it (such as entities both alive and static). This is 
  * the basic structure bringing all of the game elements unto one object. 
