@@ -1,6 +1,8 @@
 package com.mygdx.game.maps;
 
 
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.mygdx.game.entities.Fire;
 import com.mygdx.ui.PauseMenu;
 import com.mygdx.ui.State;
 
@@ -12,6 +14,7 @@ import com.mygdx.ui.State;
  */
 public class TestLevel extends Level{
 	private PauseMenu menu; 
+
 	/**
 	 * @param mappath The string path of the map for this level
 	 * @param camWidth Orthographic camera width 
@@ -22,7 +25,8 @@ public class TestLevel extends Level{
 		super.setObjectLayer("Statics_Object_Layer");
 		super.setStartCoords(30, 30);
 		menu = new PauseMenu(super.getCam());
-	}
+		}
+	
 	
 	
 
@@ -54,7 +58,7 @@ public class TestLevel extends Level{
 	}
 
 
-
+//I'm watching you 0-0 
 	public PauseMenu getPause() {
 		return menu; 
 	}

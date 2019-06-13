@@ -12,10 +12,9 @@ import com.mygdx.ui.State;
 
 public abstract class Entity {
 	public static ArrayList<Rectangle> col; 
-	private TextureAtlas entities;
 	public Rectangle bounds;
+	private TextureAtlas atlas; 
 	private float ANIMATION_RENDER_RATE = 1/15f;
-	public boolean isPlayer;
 	public int augmentedX,augmentedY; 
 
 	/**
@@ -30,13 +29,10 @@ public abstract class Entity {
 	 * 
 	 * @author Johok 
 	 */
-	public Entity(float x, float y, int width, int height, boolean isPlayer) {
+	public Entity(float x, float y, int width, int height, boolean isSolid) {
 		this.bounds = new Rectangle(x,y,width,height+10);
-		this.isPlayer = isPlayer; 
-		entities = new TextureAtlas(Gdx.files.internal("entities.txt"));
 		col = new ArrayList<Rectangle>();
-		
-		if(!isPlayer)
+		if(!isSolid)
 		col.add(this.bounds);	
 	   }
 	
@@ -44,6 +40,12 @@ public abstract class Entity {
 	public abstract void dispose();
 	public abstract void tick(); 
 	
+	public TextureAtlas getTextureAtlas() {
+		return this.atlas;
+	}
+	public void setTextureAtlas(String path) {
+		this.atlas = new TextureAtlas(Gdx.files.internal(path));
+	}
 	/**
 	 * This method is used to get a given set of images based on a passed string ID, please check the assets folder for the txt 
 	 * that has this information 
@@ -51,7 +53,7 @@ public abstract class Entity {
 	 * @return the animation found in the atlas based on the string id
 	 */
 	public Animation<TextureRegion> getAnimation(String identifier) {
-		return new Animation<TextureRegion>(ANIMATION_RENDER_RATE,this.entities.findRegions(identifier));
+		return new Animation<TextureRegion>(ANIMATION_RENDER_RATE,this.atlas.findRegions(identifier));
 	}
 	
 	/**
@@ -111,13 +113,7 @@ public abstract class Entity {
 		return false; 
 	}
 	
-	/** 
-	 * The texture atlas holding the entity animation frames 
-	 * @return The atlas 
-	 */
-	public TextureAtlas getAtlas() {
-		return this.entities;
-	}
+
 	/**
 	 * The rate in which frames are rendered in a given animation 
 	 * @param rr the render rate (default 1/15f) 

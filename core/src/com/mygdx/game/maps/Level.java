@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.entities.Player;
@@ -28,9 +29,9 @@ public abstract class Level {
 	private int camWidth = 0, camHeight = 0; 
 	private float x =0,y =0;
 	private String objectpath;
-	private MapLayer objectLayer; 
-	private MapObjects objects;
-	public Array<RectangleMapObject> boundingObjects; 
+	private MapLayer objectLayer,animationLayer; 
+	private MapObjects objects,animationMapObjects;
+	public Array<RectangleMapObject> boundingObjects,animationObjects;
 
 	
 /** 
@@ -54,6 +55,7 @@ public abstract class Level {
 	private void addCollisions() {
 		for(MapObject object: objects) {
 			RectangleMapObject rectObject = (RectangleMapObject) object;
+			object.setName(object.getName());
 			boundingObjects.add(rectObject);
 		}
 		for(RectangleMapObject object: boundingObjects) {
@@ -72,6 +74,23 @@ public abstract class Level {
 		objects = objectLayer.getObjects();
 		addCollisions();
 	}
+	public void setAnimationLayer(String layer) {
+		animationLayer = getMapLayer(layer);
+		for(MapObject object:animationMapObjects) {
+		RectangleMapObject rectObject = (RectangleMapObject) object;
+		animationObjects.add(rectObject);
+		}
+	}
+	
+	public Rectangle getRectangle(String name) {
+		Rectangle bound = null; 
+		for(RectangleMapObject object: boundingObjects) {
+			if(name.equals(object.getName())){
+				bound = object.getRectangle();
+			}
+		}
+		return bound; 
+	}
 	
 	/**
 	 * All tick methods should be called here, also holds the orthographic camera object 
@@ -80,7 +99,6 @@ public abstract class Level {
 		play.tick();
 		load();
 
-		//dis shit is broken fix plz 
 		if(play.getX() + play.getWidth() < camWidth/2 ) {
 			camera.position.x = camWidth/2;
 		}else if(play.getX()+play.getWidth()>(background.getWidth()*background.getTileWidth())-camWidth/2){
@@ -119,7 +137,8 @@ public abstract class Level {
 	 * @return a TiledMapTileLayer
 	 */
 	public TiledMapTileLayer getTiledMapLayer(String layer) {
-		return (TiledMapTileLayer) map.getLayers().get(layer);
+		TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
+		return tileLayer; 
 	}
 	
 	/**

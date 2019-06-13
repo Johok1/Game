@@ -28,18 +28,19 @@ public class Player extends Entity  {
 	 * @param isPlayer true if is player, false otherwise 
 	 * @param speed the speed that the player will move at 
 	 */
-	public Player(float x, float y, int width, int height, boolean isPlayer, int speed) {
+	public Player(float x, float y, int width, int height, boolean isSolid, int speed) {
 		super(x, y, width, height, true );
 		this.x = x;
 		this.y =y; 
 		this.width = width; 
 		this.height = height; 
 		this.speed = speed;
+		super.setTextureAtlas("entities.txt");
 		walkRight = super.getAnimation("walkright");
 		walkLeft = super.getAnimation("walkleft");
 		walkUp = super.getAnimation("walkup");
 		walkDown = super.getAnimation("down");
-		still = new TextureRegion(super.getAtlas().findRegion("Still"));
+		still = new TextureRegion(super.getTextureAtlas().findRegion("Still"));
 		super.setRenderRate(1/5f);		
 		super.augmentBoundingRectangle(10, 5);
 		super.augmentedX =10; 
@@ -52,7 +53,7 @@ public class Player extends Entity  {
 	 */
 	@Override
 	public void dispose() {
-		super.getAtlas().dispose();
+		super.getTextureAtlas().dispose();
 	}
 	
 	/**
