@@ -27,7 +27,7 @@ public class Settings {
 	
 	public void save() {
 		pref.putBoolean("Save", true);
-		pref.flush();
+		pref.flush();     
 	}
 	
 	public void setDefault() {

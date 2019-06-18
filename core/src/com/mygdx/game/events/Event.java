@@ -1,6 +1,8 @@
 package com.mygdx.game.events;
 
 public interface Event {
-	public abstract void trigger();
+	public abstract boolean trigger();
+	
+	public abstract void logic();
 
 }
