@@ -32,7 +32,7 @@ public class Player extends Entity  {
 	 * @param y position on the y axis 
 	 * @param width width of the bounding box 
 	 * @param height height of the bounding box 
-	 * @param isPlayer true if is player, false otherwise 
+	 * @param isSolid true if the entity should render collision, false otherwise.  
 	 * @param speed the speed that the player will move at 
 	 */
 	public Player(float x, float y, int width, int height, boolean isSolid, int speed) {
