@@ -1,10 +1,14 @@
 package com.mygdx.game.entities;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.items.Item;
 import com.mygdx.ui.State;
 /**
  * Represents the player which will be followed by the orthographic camera and be the object of control by the game user
@@ -18,7 +22,10 @@ public class Player extends Entity  {
 	private float x,y; 
 	private int width, height,speed; 
 	private Inputs input; 
-	
+	private float gold,morale;
+	private HashSet<Companion> party; 
+	private HashMap<String,Item> inventory;
+	private int food;
 	/**
 	 * 
 	 * @param x position on the x axis
@@ -46,6 +53,11 @@ public class Player extends Entity  {
 		super.augmentedX =10; 
 		super.augmentedY =5;
 		input = Inputs.NONE;
+		gold = 500; 
+		food = 10; 
+		morale = 10; 
+		party = new HashSet<Companion>();
+		inventory = new HashMap<String,Item>();
 	}
 	/**
 	 * dispose resources
@@ -83,10 +95,7 @@ public class Player extends Entity  {
 	 * @see com.mygdx.game.entities.Entity#draw(float, com.badlogic.gdx.graphics.g2d.Batch)
 	 */
 	@Override
-	public void draw(float statetime, Batch batch, State state) {
-		switch(state) {
-		
-		case RUN:
+	public void draw(float statetime, Batch batch) {
 			switch(input) {
 			case A:
 				this.x -=speed;
@@ -107,18 +116,6 @@ public class Player extends Entity  {
 			default:
 				batch.draw(still, this.x, this.y);
 		}
-		case PAUSE:
-			
-		case EXIT:
-			break;
-			
-		case SETTINGS:
-			break;
-			
-		default:
-			break;
-		
-	}
 	}
 	
 	// getters and setters 
@@ -139,6 +136,47 @@ public class Player extends Entity  {
 	}
 	public void setY(float y) {
 		this.y = y; 
+	}
+	public void setGold(float gold) {
+		this.gold = gold; 
+	}
+	public void addGold(float gold) {
+		this.gold += gold;
+	}
+	public float getGold() {
+		return this.gold; 
+	}
+	public HashSet<Companion> getParty(){
+		return this.party; 
+	}
+	public void addCompanion(Companion e) {
+		this.party.add(e);
+	}
+	public HashMap<String,Item> getInventory(){
+		return this.inventory;
+	}
+	public void addItem(String key, Item item) {
+		this.inventory.put(key, item);
+	}
+	public float getMorale() {
+		return this.morale;
+	}
+	/**
+	 * Use a negative to decrement 
+	 * @param value
+	 */
+	public void augmentMorale(float value) {
+		this.morale += value; 
+	}
+	public int getFood() {
+		return this.food;
+	}
+	/**
+	 * Use a negative to decrement 
+	 * @param value
+	 */
+	public void changeFood(int value) {
+		this.food += value; 
 	}
 	
 }

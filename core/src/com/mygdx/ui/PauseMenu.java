@@ -76,10 +76,8 @@ public class PauseMenu extends UI{
 	}
 
 	@Override
-	public void render(float elapsedtime, Batch batch, State state ) {
+	public void render(float elapsedtime, Batch batch) {
 		mousePosUpdate();
-		switch(state) {
-		case PAUSE:
 		if(isMouseCollision(buttonBounds)) {
 			batch.draw(button.getKeyFrame(elapsedtime,true),buttonBounds.getX(),buttonBounds.getY(),buttonBounds.getWidth(),buttonBounds.getHeight());
 		}else {
@@ -89,15 +87,6 @@ public class PauseMenu extends UI{
 			batch.draw(button2.getKeyFrame(elapsedtime,true),buttonBounds2.getX(),buttonBounds2.getY(),buttonBounds2.getWidth(),buttonBounds2.getHeight());
 		}else {
 			batch.draw(button2.getKeyFrame(0),buttonBounds2.getX(),buttonBounds2.getY(),buttonBounds2.getWidth(),buttonBounds2.getHeight());
-		}
-		case EXIT:
-			break;
-		case RUN:
-			break;
-		case SETTINGS:
-			break;
-		default:
-			break;
 		}
 	}
 

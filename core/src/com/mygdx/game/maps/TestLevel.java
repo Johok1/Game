@@ -1,8 +1,9 @@
 package com.mygdx.game.maps;
 
 
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.mygdx.game.entities.Fire;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.mygdx.ui.PauseMenu;
 import com.mygdx.ui.State;
 
@@ -25,36 +26,51 @@ public class TestLevel extends Level{
 		super.setObjectLayer("Statics_Object_Layer");
 		super.setStartCoords(30, 30);
 		menu = new PauseMenu(super.getCam());
+		super.getManager().load("entities.txt", TextureAtlas.class);
+		super.getManager().load("ui.txt", TextureAtlas.class);
+		super.getManager().load("grass-tiles-2-small.png", Texture.class);
 		}
 	
-	
-	
-
-	/**
-	 *Put all logic that must be called periodically in here  
-	 *
-	 * @see com.mygdx.game.maps.Level#load()
-	 */
-	@Override
-	public void load() {
-		
-	}
 	/**
 	 * Renders all objects and entities in this level 
 	 * @see com.mygdx.game.maps.Level#render(float, State);
 	 */
 	@Override
 	public void render(float elapsed, State state) {
-		menu.tick();
-		super.tick(super.getTiledMapLayer("Background"));
-		super.getCam().update();
-		super.getRenderer().setView(super.getCam());
-		super.getBatch().begin();
-		super.getRenderer().renderTileLayer(super.getTiledMapLayer("Background"));
-		super.renderPlayer(elapsed, getBatch(), state);
-		super.getRenderer().renderTileLayer(super.getTiledMapLayer("Statics"));
-		menu.render(elapsed, getBatch(),state);
-		super.getBatch().end();
+		
+		super.getBatch().setColor(getRGB(), getRGB(), getRGB(), 1);
+		
+		switch(state) {
+		case RUN:
+			super.getRenderer().setView(super.getCam());
+			super.getCam().update();
+			super.getBatch().begin();
+			super.tick(super.getTiledMapLayer("Background"));	
+			super.getRenderer().renderTileLayer(super.getTiledMapLayer("Background"));
+			super.getPlay().draw(elapsed, super.getBatch());
+			super.getRenderer().renderTileLayer(super.getTiledMapLayer("Statics"));
+			super.getBatch().end();
+			break;
+		
+		case PAUSE:
+			super.getRenderer().setView(super.getCam());
+			super.getCam().update();
+			super.getBatch().begin();
+			super.tick(super.getTiledMapLayer("Background"));	
+			super.getRenderer().renderTileLayer(super.getTiledMapLayer("Background"));
+			super.getRenderer().renderTileLayer(super.getTiledMapLayer("Statics"));
+			menu.tick();
+			menu.render(elapsed, getBatch());
+			super.getBatch().end();
+			break;
+		case EXIT:
+			break;
+		case SETTINGS:
+			break;
+		default:
+			break;
+	}
+	
 	}
 
 
@@ -62,6 +78,16 @@ public class TestLevel extends Level{
 	public PauseMenu getPause() {
 		return menu; 
 	}
-	
+	public boolean isFinishedLoading() {
+		return super.getManager().isFinished();
+	}
+	public AssetManager getManager() {
+		return super.getManager();
+	}
+	public void garbage() {
+		super.getManager().unload("entities.txt");
+		super.getManager().unload("ui.txt");
+		super.getManager().unload("grass-tiles-2-small.png");
+	}
 
 }

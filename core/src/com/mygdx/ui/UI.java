@@ -32,7 +32,7 @@ public abstract class UI implements InputProcessor{
 	 * @param elapsedtime
 	 * @param batch
 	 */
-   public abstract void render(float elapsedtime, Batch batch,State state);
+   public abstract void render(float elapsedtime, Batch batch);
    
    public void dispose() {
 		UI.dispose();

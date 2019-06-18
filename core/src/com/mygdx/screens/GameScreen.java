@@ -41,6 +41,8 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		if(level.isFinishedLoading())
+		{
 		level.getCam().update();
 		switch(state) {	
 		case EXIT:
@@ -62,12 +64,21 @@ public class GameScreen implements Screen {
 			level.render(elapsedtime, state);
 			if(Gdx.input.isKeyJustPressed(Settings.pref.getInteger("PauseScreen"))) {
 				state = State.PAUSE;
+				level.getSettings().setTime(level.getTime());
+				level.getSettings().save();
 				break;
 			}
+		case SETTINGS:
+			elapsedtime += Gdx.graphics.getDeltaTime();
+			level.render(elapsedtime, state);
 	
 		default:
 			break;
 
+		}
+		}else {
+			level.getManager().update();
+			//loading screen here 
 		}
 		}
 	public void debugRender() {
@@ -108,6 +119,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		level.garbage();
 		level.dispose();
 	}
 

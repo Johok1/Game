@@ -8,15 +8,15 @@ import com.badlogic.gdx.Preferences;
 public class Settings {
 	
 	public static Preferences pref = Gdx.app.getPreferences("settings");
-	private static boolean saved = false; 
-	
 	public Settings() {
-		if(!saved) {
+		if(!pref.getBoolean("Save")) {
 			defaults();
 		}
 	}
 
 	private void defaults() {
+		pref.putBoolean("Save", false);
+		pref.putFloat("Time", 1200f);
 		pref.putInteger("MoveUp", Input.Keys.valueOf("W"));
 		pref.putInteger("MoveDown", Input.Keys.valueOf("S"));
 		pref.putInteger("MoveLeft", Input.Keys.valueOf("A"));
@@ -26,12 +26,16 @@ public class Settings {
 	}
 	
 	public void save() {
-		Settings.saved = true; 
+		pref.putBoolean("Save", true);
+		pref.flush();
 	}
 	
 	public void setDefault() {
-		Settings.saved = false;
-	
+		defaults();
+
+	}
+	public void setTime(float time) {
+		pref.putFloat("Time", time);
 	}
 	public void setMoveUp(String key) {
 		pref.putInteger("MoveUp", Input.Keys.valueOf(key));

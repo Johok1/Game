@@ -1,10 +1,12 @@
 package com.mygdx.ui;
 
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -13,6 +15,7 @@ public class MainMenuUI extends UI{
 	private Animation<TextureRegion> button,button2;
 	private Rectangle buttonBounds,buttonBounds2;
 	private boolean touched; 
+	private AssetManager manager;
 	
 	public MainMenuUI(OrthographicCamera cam) {
 		super(cam);
@@ -22,8 +25,15 @@ public class MainMenuUI extends UI{
 
 		buttonBounds = new Rectangle(0-50,10-70,50,70);
 		buttonBounds2 = new Rectangle(buttonBounds.x,buttonBounds.y+100,buttonBounds.getWidth(),buttonBounds.getHeight());
+		manager = new AssetManager();
+		manager.load("ui.txt",TextureAtlas.class);
 	}
-	
+	public boolean isFinishedLoading() {
+		return manager.isFinished();
+	}
+	public AssetManager getManager() {
+		return manager; 
+	}
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
@@ -72,7 +82,7 @@ public class MainMenuUI extends UI{
 	}
 
 	@Override
-	public void render(float elapsedtime, Batch batch, State state) { 
+	public void render(float elapsedtime, Batch batch) { 
 		font.draw(batch, "Main Menu Screen", buttonBounds.getX()-(buttonBounds.getWidth()/2),buttonBounds.getY() +250);
 		mousePosUpdate();
 		if(isMouseCollision(buttonBounds)) {
@@ -101,5 +111,7 @@ public class MainMenuUI extends UI{
 			return false;
 		}
 	}
-
+	public void garbage() {
+		manager.unload("ui.txt");
+	}
 }

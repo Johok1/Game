@@ -1,5 +1,6 @@
 package com.mygdx.game.maps;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.MapLayer;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.utils.Settings;
 import com.mygdx.ui.State;
 /**
  * An abstract object representing a map with several objects on it (such as entities both alive and static). This is 
@@ -32,7 +34,9 @@ public abstract class Level {
 	private MapLayer objectLayer,animationLayer; 
 	private MapObjects objects,animationMapObjects;
 	public Array<RectangleMapObject> boundingObjects,animationObjects;
-
+	private AssetManager manager; 
+	private Settings settings; 
+	private float RGB = 0f, time;
 	
 /** 
  * @param mappath A string representing the tmx file of the map for this given level (loading is buggy) 
@@ -41,7 +45,9 @@ public abstract class Level {
  */
 	public Level(String mappath, int camWidth, int camHeight) {
 		this.camWidth = camWidth; 
-		this.camHeight = camHeight; 
+		this.camHeight = camHeight;
+		settings = new Settings();
+		time = settings.pref.getFloat("Time");
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, camWidth, camHeight);
 		play = new Player(this.x,this.y,8,20,true,3);
@@ -49,6 +55,7 @@ public abstract class Level {
 		renderer = new OrthogonalTiledMapRenderer(map);
 		camera.position.x = renderer.getViewBounds().x;
 		boundingObjects = new Array<RectangleMapObject>();
+		manager = new AssetManager();
 		
 	}
 	
@@ -95,10 +102,25 @@ public abstract class Level {
 	/**
 	 * All tick methods should be called here, also holds the orthographic camera object 
 	 */
-	public void tick(TiledMapTileLayer background) {
+	public synchronized void tick(TiledMapTileLayer background) {
 		play.tick();
-		load();
+		
+		time += 0.1f;
+	
+		if(time>=2400)
+			time = 0; 
 
+		if(time >0 && time< 800) {
+			RGB = 0.1f;
+		}else if(time >800 && time < 1000) {
+			RGB = 0.35f;
+		}else if(time >1000 && time < 1400) {
+			RGB = 0.5f; 
+		}else if(time > 1400 &&time < 1800) {
+			RGB = 0.35f;
+		}else if(time > 1800 && time <2400) {
+			RGB = 0.2f;
+		}
 		if(play.getX() + play.getWidth() < camWidth/2 ) {
 			camera.position.x = camWidth/2;
 		}else if(play.getX()+play.getWidth()>(background.getWidth()*background.getTileWidth())-camWidth/2){
@@ -114,7 +136,6 @@ public abstract class Level {
 		}
 		
 	}
-	public abstract void load();
 	
 	public abstract void render(float elapsed, State state);
 
@@ -164,8 +185,8 @@ public abstract class Level {
 		play.setY(y);
 	}
 	
-	public void renderPlayer(float elapsed, Batch batch, State state) {
-		play.draw(elapsed, batch, state);
+	public void renderPlayer(float elapsed, Batch batch) {
+		play.draw(elapsed, batch);
 	}
 	
 	public void dispose() {
@@ -182,6 +203,18 @@ public abstract class Level {
 	}
 	public TiledMap getMap() {
 		return map; 
+	}
+	public float getRGB() {
+		return this.RGB;
+	}
+	public Settings getSettings() {
+		return this.settings; 
+	}
+	public AssetManager getManager() {
+		return manager;
+	}
+	public float getTime() {
+		return this.time;
 	}
 
 }

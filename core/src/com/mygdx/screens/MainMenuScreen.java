@@ -28,16 +28,20 @@ public class MainMenuScreen implements Screen{
 	}
 	@Override
 	public void render(float delta) {
+		if(mainMenuUI.isFinishedLoading()) {
 		elapsedtime += Gdx.graphics.getDeltaTime();
 		batch.setProjectionMatrix(cam.combined);
 		batch.begin();
-		mainMenuUI.render(elapsedtime, batch, null);
+		mainMenuUI.render(elapsedtime, batch);
 		batch.end();
 		if(mainMenuUI.touched()) {
 			agame.setScreen(new GameScreen(agame));
 		}
 		if(mainMenuUI.exit()) {
 			Gdx.app.exit();
+		}
+		}else {
+			mainMenuUI.getManager().update();
 		}
 	}
 	@Override
@@ -62,7 +66,7 @@ public class MainMenuScreen implements Screen{
 	}
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		mainMenuUI.garbage();
+		mainMenuUI.dispose();
 	}
 }

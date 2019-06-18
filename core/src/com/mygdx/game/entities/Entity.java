@@ -36,7 +36,7 @@ public abstract class Entity {
 		col.add(this.bounds);	
 	   }
 	
-	public abstract void draw(float delta, Batch batch, State state);
+	public abstract void draw(float delta, Batch batch);
 	public abstract void dispose();
 	public abstract void tick(); 
 	
