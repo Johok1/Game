@@ -37,7 +37,7 @@ public abstract class Level {
 	private AssetManager manager; 
 	private Settings settings; 
 	private float RGB = 0f, time;
-	
+	private Time timeState;
 /** 
  * @param mappath A string representing the tmx file of the map for this given level (loading is buggy) 
  * @param camWidth The width of the orthographic camera
@@ -105,20 +105,25 @@ public abstract class Level {
 	public synchronized void tick(TiledMapTileLayer background) {
 		play.tick();
 		
-		time += 0.1f;
+		time += 0.0001f;
 	
 		if(time>=2400)
 			time = 0; 
 
 		if(time >0 && time< 800) {
+			timeState = Time.MidNight;
 			RGB = 0.1f;
 		}else if(time >800 && time < 1000) {
+			timeState = Time.Morning; 
 			RGB = 0.35f;
 		}else if(time >1000 && time < 1400) {
+			timeState = Time.Noon;
 			RGB = 0.5f; 
 		}else if(time > 1400 &&time < 1800) {
+			timeState = Time.Evening;
 			RGB = 0.35f;
 		}else if(time > 1800 && time <2400) {
+			timeState = Time.Night;
 			RGB = 0.2f;
 		}
 		if(play.getX() + play.getWidth() < camWidth/2 ) {
@@ -136,7 +141,9 @@ public abstract class Level {
 		}
 		
 	}
-	
+	public Time getTime() {
+		return this.timeState;
+	}
 	public abstract void render(float elapsed, State state);
 
 	public OrthographicCamera getCam() {
@@ -212,9 +219,7 @@ public abstract class Level {
 	}
 	public AssetManager getManager() {
 		return manager;
-	}
-	public float getTime() {
-		return this.time;
+	
 	}
 
 }

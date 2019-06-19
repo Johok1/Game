@@ -47,6 +47,7 @@ public class GameScreen implements Screen {
 		switch(state) {	
 		case EXIT:
 			agame.setScreen(new MainMenuScreen(agame));
+			break;
 		case PAUSE:
 			elapsedtime += Gdx.graphics.getDeltaTime();
 			level.render(elapsedtime, state);
@@ -59,19 +60,18 @@ public class GameScreen implements Screen {
 			}else if(level.getPause().button2Activate()) {
 				state = State.SETTINGS;
 			}
+			break;
 		case RUN:
 			elapsedtime += Gdx.graphics.getDeltaTime();
 			level.render(elapsedtime, state);
 			if(Gdx.input.isKeyJustPressed(Settings.pref.getInteger("PauseScreen"))) {
 				state = State.PAUSE;
-				level.getSettings().setTime(level.getTime());
-				level.getSettings().save();
 				break;
 			}
 		case SETTINGS:
 			elapsedtime += Gdx.graphics.getDeltaTime();
 			level.render(elapsedtime, state);
-	
+			break;
 		default:
 			break;
 
