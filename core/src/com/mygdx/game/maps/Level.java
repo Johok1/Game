@@ -83,6 +83,7 @@ public abstract class Level {
 	}
 	public void setAnimationLayer(String layer) {
 		animationLayer = getMapLayer(layer);
+		animationMapObjects = animationLayer.getObjects();
 		for(MapObject object:animationMapObjects) {
 		RectangleMapObject rectObject = (RectangleMapObject) object;
 		animationObjects.add(rectObject);

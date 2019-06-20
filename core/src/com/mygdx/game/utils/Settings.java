@@ -16,7 +16,6 @@ public class Settings {
 
 	private void defaults() {
 		pref.putBoolean("Save", false);
-		pref.putFloat("Time", 1200f);
 		pref.putInteger("MoveUp", Input.Keys.valueOf("W"));
 		pref.putInteger("MoveDown", Input.Keys.valueOf("S"));
 		pref.putInteger("MoveLeft", Input.Keys.valueOf("A"));
