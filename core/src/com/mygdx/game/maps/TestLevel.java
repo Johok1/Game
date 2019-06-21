@@ -1,9 +1,12 @@
 package com.mygdx.game.maps;
 
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.mygdx.ui.Dialogue;
 import com.mygdx.ui.PauseMenu;
 import com.mygdx.ui.State;
 
@@ -15,6 +18,7 @@ import com.mygdx.ui.State;
  */
 public class TestLevel extends Level{
 	private PauseMenu menu; 
+	private Dialogue dia;
 
 	/**
 	 * @param mappath The string path of the map for this level
@@ -67,6 +71,16 @@ public class TestLevel extends Level{
 			break;
 		case SETTINGS:
 			break;
+		case DIALOGUE:
+			super.getRenderer().setView(super.getCam());
+			super.getCam().update();
+			super.getBatch().begin();
+			super.tick(super.getTiledMapLayer("Background"));	
+			super.getRenderer().renderTileLayer(super.getTiledMapLayer("Background"));
+			super.getRenderer().renderTileLayer(super.getTiledMapLayer("Statics"));
+			super.getBatch().end();
+			break;
+		
 		default:
 			break;
 	}

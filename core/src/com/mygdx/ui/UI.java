@@ -2,6 +2,7 @@ package com.mygdx.ui;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -15,14 +16,17 @@ public abstract class UI implements InputProcessor{
 	private TextureAtlas UI;  
 	private OrthographicCamera cam; 
 	private Vector3 mousePos; 
+	public static final InputMultiplexer multi = new InputMultiplexer();
 	public UI(OrthographicCamera cam) {
-		Gdx.input.setInputProcessor(this);
+	
+		Gdx.input.setInputProcessor(multi);
 		this.cam = cam;
 		mousePos = new Vector3();
 		cam.unproject(mousePos.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 		UI = new TextureAtlas(Gdx.files.internal("ui.txt"));
 	}
 	
+
 	public void mousePosUpdate() {
 		cam.unproject(mousePos.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 	}

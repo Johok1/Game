@@ -50,7 +50,7 @@ public abstract class Level {
 		time = settings.pref.getFloat("Time");
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, camWidth, camHeight);
-		play = new Player(this.x,this.y,8,20,true,3);
+		play = new Player(this.x,this.y,8,20,true,1);
 		map = new TmxMapLoader().load(mappath);
 		renderer = new OrthogonalTiledMapRenderer(map);
 		camera.position.x = renderer.getViewBounds().x;

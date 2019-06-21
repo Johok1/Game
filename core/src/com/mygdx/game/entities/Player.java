@@ -20,9 +20,9 @@ public class Player extends Entity  {
 	private Animation<TextureRegion> walkUp, walkLeft, walkRight, walkDown; 
 	private TextureRegion still; 
 	private float x,y; 
-	private int width, height,speed; 
+	private int width, height;
 	private Inputs input; 
-	private float gold,morale;
+	private float gold,morale,speed;
 	private HashSet<Companion> party; 
 	private HashMap<String,Item> inventory;
 	private int food;
@@ -35,7 +35,7 @@ public class Player extends Entity  {
 	 * @param isSolid true if the entity should render collision, false otherwise.  
 	 * @param speed the speed that the player will move at 
 	 */
-	public Player(float x, float y, int width, int height, boolean isSolid, int speed) {
+	public Player(float x, float y, int width, int height, boolean isSolid, float speed) {
 		super(x, y, width, height, true );
 		this.x = x;
 		this.y =y; 

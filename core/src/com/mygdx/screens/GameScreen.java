@@ -2,6 +2,7 @@ package com.mygdx.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -61,11 +62,21 @@ public class GameScreen implements Screen {
 				state = State.SETTINGS;
 			}
 			break;
+		case DIALOGUE:
+			elapsedtime += Gdx.graphics.getDeltaTime();
+			level.render(elapsedtime, state);
+			if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+				state = State.RUN;
+			}
 		case RUN:
 			elapsedtime += Gdx.graphics.getDeltaTime();
 			level.render(elapsedtime, state);
 			if(Gdx.input.isKeyJustPressed(Settings.pref.getInteger("PauseScreen"))) {
 				state = State.PAUSE;
+				break;
+			}
+			if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+				state = State.DIALOGUE;
 				break;
 			}
 		case SETTINGS:
