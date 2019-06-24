@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.mygdx.game.entities.Player;
 import com.mygdx.ui.Dialogue;
 import com.mygdx.ui.PauseMenu;
 import com.mygdx.ui.State;
@@ -25,8 +26,8 @@ public class TestLevel extends Level{
 	 * @param camWidth Orthographic camera width 
 	 * @param camHeight Orthographic camera height 
 	 */
-	public TestLevel(String mappath, int camWidth, int camHeight) {
-		super(mappath, camWidth, camHeight);
+	public TestLevel(String mappath, int camWidth, int camHeight, Player play, Time timeState) {
+		super(mappath, camWidth, camHeight, play, timeState);
 		super.setObjectLayer("Statics_Object_Layer");
 		super.setStartCoords(30, 30);
 		menu = new PauseMenu(super.getCam());

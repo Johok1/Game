@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.entities.Player;
 import com.mygdx.game.maps.TestLevel;
+import com.mygdx.game.maps.Time;
 import com.mygdx.game.utils.Settings;
 import com.mygdx.ui.State;
 
@@ -29,7 +31,7 @@ public class GameScreen implements Screen {
 	public GameScreen(Game agame) {
 		this.agame = agame;
 		elapsedtime =0;
-		level = new TestLevel("TestGreenMap.tmx",170,100);
+		level = new TestLevel("TestGreenMap.tmx",170,100, new Player(100,100,20,20,false,0.5f), Time.Morning);
 		shape = new ShapeRenderer();
 		state = State.RUN;
 		
@@ -62,21 +64,11 @@ public class GameScreen implements Screen {
 				state = State.SETTINGS;
 			}
 			break;
-		case DIALOGUE:
-			elapsedtime += Gdx.graphics.getDeltaTime();
-			level.render(elapsedtime, state);
-			if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-				state = State.RUN;
-			}
 		case RUN:
 			elapsedtime += Gdx.graphics.getDeltaTime();
 			level.render(elapsedtime, state);
 			if(Gdx.input.isKeyJustPressed(Settings.pref.getInteger("PauseScreen"))) {
 				state = State.PAUSE;
-				break;
-			}
-			if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-				state = State.DIALOGUE;
 				break;
 			}
 		case SETTINGS:

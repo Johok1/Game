@@ -36,21 +36,21 @@ public abstract class Level {
 	public Array<RectangleMapObject> boundingObjects,animationObjects;
 	private AssetManager manager; 
 	private Settings settings; 
-	private float RGB = 0f, time;
+	private float RGB = 0f;
 	private Time timeState;
 /** 
  * @param mappath A string representing the tmx file of the map for this given level (loading is buggy) 
  * @param camWidth The width of the orthographic camera
  * @param camHeight the height of the orthographic camera 
  */
-	public Level(String mappath, int camWidth, int camHeight) {
+	public Level(String mappath, int camWidth, int camHeight, Player play,Time timeState) {
 		this.camWidth = camWidth; 
 		this.camHeight = camHeight;
+		this.timeState = timeState;
 		settings = new Settings();
-		time = settings.pref.getFloat("Time");
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, camWidth, camHeight);
-		play = new Player(this.x,this.y,8,20,true,1);
+		this.play = play; 
 		map = new TmxMapLoader().load(mappath);
 		renderer = new OrthogonalTiledMapRenderer(map);
 		camera.position.x = renderer.getViewBounds().x;
@@ -106,27 +106,26 @@ public abstract class Level {
 	public synchronized void tick(TiledMapTileLayer background) {
 		play.tick();
 		
-		time += 0.0001f;
 	
-		if(time>=2400)
-			time = 0; 
-
-		if(time >0 && time< 800) {
-			timeState = Time.MidNight;
+		switch(timeState) {
+		case MidNight:
+			
 			RGB = 0.1f;
-		}else if(time >800 && time < 1000) {
-			timeState = Time.Morning; 
+			break;
+		case Morning:
 			RGB = 0.35f;
-		}else if(time >1000 && time < 1400) {
-			timeState = Time.Noon;
-			RGB = 0.5f; 
-		}else if(time > 1400 &&time < 1800) {
-			timeState = Time.Evening;
+			break;
+		case Noon:
+			RGB = 0.5f;
+			break;
+		case Evening:
 			RGB = 0.35f;
-		}else if(time > 1800 && time <2400) {
-			timeState = Time.Night;
+			break;
+		case Night:
 			RGB = 0.2f;
+			break;
 		}
+		
 		if(play.getX() + play.getWidth() < camWidth/2 ) {
 			camera.position.x = camWidth/2;
 		}else if(play.getX()+play.getWidth()>(background.getWidth()*background.getTileWidth())-camWidth/2){
@@ -144,6 +143,8 @@ public abstract class Level {
 	}
 	public Time getTime() {
 		return this.timeState;
+		
+		
 	}
 	public abstract void render(float elapsed, State state);
 
