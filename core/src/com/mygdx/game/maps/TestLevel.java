@@ -3,13 +3,21 @@ package com.mygdx.game.maps;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.Player;
 import com.mygdx.ui.Dialogue;
 import com.mygdx.ui.PauseMenu;
 import com.mygdx.ui.State;
+
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 
 /**
  * Simple test level
@@ -19,6 +27,7 @@ import com.mygdx.ui.State;
  */
 public class TestLevel extends Level{
 	private PauseMenu menu; 
+	private Texture light; 
 	private Dialogue dia;
 
 	/**
@@ -34,6 +43,7 @@ public class TestLevel extends Level{
 		super.getManager().load("entities.txt", TextureAtlas.class);
 		super.getManager().load("ui.txt", TextureAtlas.class);
 		super.getManager().load("grass-tiles-2-small.png", Texture.class);
+	    light = new Texture(Gdx.files.internal("light.png"));
 		}
 	
 	/**
@@ -47,14 +57,24 @@ public class TestLevel extends Level{
 		
 		switch(state) {
 		case RUN:
+			
 			super.getRenderer().setView(super.getCam());
 			super.getCam().update();
+		
 			super.getBatch().begin();
 			super.tick(super.getTiledMapLayer("Background"));	
 			super.getRenderer().renderTileLayer(super.getTiledMapLayer("Background"));
+			super.getBatch().setColor(1f, 1f, 1f, 1);
+			super.getBatch().setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_SRC_ALPHA); 
+			super.getBatch().draw(light, super.getPlay().getX(), super.getPlay().getY(),40,40);
+			super.getBatch().setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			super.getBatch().setColor(getRGB(), getRGB(), getRGB(), 1);
 			super.getPlay().draw(elapsed, super.getBatch());
+			
 			super.getRenderer().renderTileLayer(super.getTiledMapLayer("Statics"));
+			
 			super.getBatch().end();
+			
 			break;
 		
 		case PAUSE:

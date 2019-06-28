@@ -58,7 +58,9 @@ public abstract class Level {
 		manager = new AssetManager();
 		
 	}
-	
+	public OrthographicCamera getCamera() {
+		return this.camera;
+	}
 	private void addCollisions() {
 		for(MapObject object: objects) {
 			RectangleMapObject rectObject = (RectangleMapObject) object;

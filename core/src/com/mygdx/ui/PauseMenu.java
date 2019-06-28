@@ -13,8 +13,9 @@ public class PauseMenu extends UI{
 	private boolean touched = false;
 	private OrthographicCamera cam; 
 	public PauseMenu(OrthographicCamera cam) {
-		super(cam);
+		super(cam,true);
 		UI.multi.addProcessor(this);
+		super.setTextureAtlas("ui.txt");
 		button = super.getAnimation("b", 1/100f);
 		button2 = super.getAnimation("b", 1/100f);
 		buttonBounds = new Rectangle(cam.position.x, cam.position.y,20,20);

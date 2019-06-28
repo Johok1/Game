@@ -16,19 +16,25 @@ public abstract class UI implements InputProcessor{
 	private TextureAtlas UI;  
 	private OrthographicCamera cam; 
 	private Vector3 mousePos; 
+	private boolean isCam;
 	public static final InputMultiplexer multi = new InputMultiplexer();
-	public UI(OrthographicCamera cam) {
-	
+	public UI(OrthographicCamera cam, boolean isCam) {
+		this.isCam = isCam;
 		Gdx.input.setInputProcessor(multi);
 		this.cam = cam;
 		mousePos = new Vector3();
-		cam.unproject(mousePos.set(Gdx.input.getX(), Gdx.input.getY(), 0));
-		UI = new TextureAtlas(Gdx.files.internal("ui.txt"));
+		if(isCam)
+			cam.unproject(mousePos.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+		else
+			mousePos.set(Gdx.input.getX(), -(Gdx.input.getY()-Gdx.graphics.getHeight()), 0);
 	}
 	
 
 	public void mousePosUpdate() {
-		cam.unproject(mousePos.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+		if(isCam)
+			cam.unproject(mousePos.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+		else
+			mousePos.set(Gdx.input.getX(), -(Gdx.input.getY()-Gdx.graphics.getHeight()), 0);
 	}
 	
 	/**
@@ -38,9 +44,10 @@ public abstract class UI implements InputProcessor{
 	 */
    public abstract void render(float elapsedtime, Batch batch);
    
-   public void dispose() {
-		UI.dispose();
-	}
+ 
+   public void setTextureAtlas(String path) {
+	   UI = new TextureAtlas(Gdx.files.internal(path));
+   }
    
    public Animation<TextureRegion> getAnimation(String id, float frameRate){
 	   return new Animation<TextureRegion>(frameRate,this.UI.findRegions(id));

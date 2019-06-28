@@ -26,7 +26,7 @@ public class Dialogue extends UI{
 	 * @param cam
 	 */
 	public Dialogue(OrthographicCamera cam, float x, float y, int width, int height ) {
-		super(cam);
+		super(cam,true);
 		font = new BitmapFont();
 		UI.multi.addProcessor(this);
 		page = new HashMap<Integer,TextureRegion>();

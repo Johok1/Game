@@ -1,0 +1,33 @@
+buttons.png
+size: 257, 525
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ExitButton
+  rotate: false
+  xy: 0, 0
+  size: 257, 131
+  orig: 257, 131
+  offset: 0, 0
+  index: -1
+LoadGame
+  rotate: false
+  xy: 0, 131
+  size: 257, 132
+  orig: 257, 132
+  offset: 0, 0
+  index: -1
+NewGame
+  rotate: false
+  xy: 0, 263
+  size: 257, 131
+  orig: 257, 131
+  offset: 0, 0
+  index: -1
+Settings
+  rotate: false
+  xy: 0, 394
+  size: 257, 131
+  orig: 257, 131
+  offset: 0, 0
+  index: -1

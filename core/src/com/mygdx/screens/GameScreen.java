@@ -31,7 +31,7 @@ public class GameScreen implements Screen {
 	public GameScreen(Game agame) {
 		this.agame = agame;
 		elapsedtime =0;
-		level = new TestLevel("TestGreenMap.tmx",170,100, new Player(100,100,20,20,false,0.5f), Time.Morning);
+		level = new TestLevel("TestGreenMap.tmx",170,100, new Player(100,100,20,20,false,0.5f), Time.MidNight);
 		shape = new ShapeRenderer();
 		state = State.RUN;
 		
